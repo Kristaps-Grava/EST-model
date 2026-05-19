@@ -27,3 +27,24 @@ unit("Wh")  = unit("W") *unit("h");
 unit("kWh") = unit("kW")*unit("h");
 unit("MWh") = unit("MW")*unit("h");
 unit("GWh") = unit("GW")*unit("h");
+
+% temperature
+unit("K") = 1.;
+
+% mass
+unit("kg") = 1.;
+unit("t") = 1000*unit("kg");
+
+% length
+unit("m") = 1.;
+unit("km") = 1000*unit("m");
+
+% area
+unit("m^2") = unit("m")^2;
+
+% resistance
+unit("ohm") = 1.;
+
+% voltage
+unit("V") = 1.;
+unit("kV") = 1000*unit("V");

@@ -5,39 +5,45 @@
 
 timeUnit   = 's';
 
-supplyFile = "SolarExample_supply.csv";
-supplyUnit = "kW";
+supplyFile = "Team37_supply.csv";
+supplyUnit = "MW";
 
 % load the supply data
 Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit);
 
-demandFile = "SolarExample_demand.csv";
-demandUnit = "kW";
+demandFile = "Team37_demand.csv";
+demandUnit = "MW";
 
 % load the demand data
 Demand = loadDemandData(demandFile, timeUnit, demandUnit);
 
 %% Simulation settings
 
-deltat = 5*unit("min");
+deltat = 1*unit("min");
 stopt  = min([Supply.Timeinfo.End, Demand.Timeinfo.End]);
 
 %% System parameters
 
-% transport from supply
-aSupplyTransport = 0.01; % Dissipation coefficient
+% transport parameters
+distance_to_storage     = 1     *unit("km");
+distance_to_Cairo       = 100   *unit("km");
+power_line_resistance   = 0.05  *unit("ohm")/unit("km");
+power_line_voltage      = 400   *unit("kV");
 
-% injection system
-aInjection = 0.1; % Dissipation coefficient
+% injection parameters
+eta_heat_exchanger      = 0.98;
 
-% storage system
-EStorageMax     = 10.*unit("kWh"); % Maximum energy
-EStorageMin     = 0.0*unit("kWh"); % Minimum energy
-EStorageInitial = 2.0*unit("kWh"); % Initial energy
-bStorage        = 1e-6/unit("s");  % Storage dissipation coefficient
+% extraction parameters
+eta_generator           = 0.98;
+eta_turbine             = 0.85;
+%eta_carnot is calculated in code
 
-% extraction system
-aExtraction = 0.1; % Dissipation coefficient
-
-% transport to demand
-aDemandTransport = 0.01; % Dissipation coefficient
+% storage parameters
+salt_mass                   = 6000  *unit("t");
+salt_hot_mass_min           = 100   *unit("t");
+temp_hot_tank               = 800   *unit("K");
+temp_cold_tank              = 500   *unit("K");
+temp_environment            = 300   *unit("K");
+tank_surface_area           = 1000  *unit("m^2");
+salt_heat_capacity          = 1500  *unit("J")/(unit("kg")*unit("K"));
+heat_transfer_coefficient   = 0.133 *unit("W")/(unit("K")*unit("m^2"));
